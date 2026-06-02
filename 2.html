@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Responsive Portfolio</title>
+
+  <style>
+    /* =========================
+       CSS VARIABLES
+    ========================== */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #111827;
+      --card-color: rgba(255,255,255,0.7);
+      --primary-color: #6366f1;
+      --secondary-color: #8b5cf6;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    body.dark-theme {
+      --bg-color: #0f172a;
+      --text-color: #f8fafc;
+      --card-color: rgba(30,41,59,0.7);
+      --shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    /* =========================
+       GLOBAL STYLES
+    ========================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: 0.4s ease;
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(90%, 1200px);
+      margin: auto;
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    body.dark-theme header {
+      background: rgba(15,23,42,0.4);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .theme-toggle {
+      padding: 10px 15px;
+      border: none;
+      background: linear-gradient(
+        to right,
+        var(--primary-color),
+        var(--secondary-color)
+      );
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* =========================
+       HERO SECTION
+    ========================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      margin-bottom: 20px;
+    }
+
+    .hero-text span {
+      color: var(--primary-color);
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(
+        to right,
+        var(--primary-color),
+        var(--secondary-color)
+      );
+      color: white;
+    }
+
+    .secondary-btn {
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+    }
+
+    .hero-image {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-image img {"C:\Users\hp\OneDrive\Pictures\Saved Pictures\WhatsApp Image 2025-09-28 at 14.27.41_934ccc57.jpg"
+  width: 320px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+    /* =========================
+       ABOUT
+    ========================== */
+    .about-card {
+      background: var(--card-color);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    /* =========================
+       SKILLS
+    ========================== */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .skill {
+      padding: 15px 25px;
+      background: var(--card-color);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .skill:hover {
+      transform: scale(1.05);
+    }
+
+    /* =========================
+       PROJECTS
+    ========================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--card-color);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .project-content {
+      padding: 20px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 10px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+    .contact-box {
+      text-align: center;
+      background: var(--card-color);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-box a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    /* =========================
+       MEDIA QUERIES
+    ========================== */
+    @media (min-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header>
+    <div class="container navbar">
+      <div class="logo">MyPortfolio</div>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="theme-toggle">Dark Mode</button>
+    </div>
+  </header>
+
+  <!-- =========================
+       HERO
+  ========================== -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+
+      <div class="hero-text">
+        <h1>Hello, I'm <span>Syed Gouse</span></h1>
+
+        <p>
+          Frontend Developer passionate about building
+          responsive and visually stunning web experiences.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#" class="btn primary-btn">View Projects</a>
+          <a href="#" class="btn secondary-btn">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800" alt="Profile">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+
+      <div class="about-card">
+        <p>
+          I am a modern web developer specializing in responsive,
+          mobile-first websites using HTML5, CSS3, Flexbox,
+          CSS Grid, and JavaScript.
+        </p>
+
+        <p>
+          I love creating beautiful user interfaces with
+          smooth animations and modern layouts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       SKILLS
+  ========================== -->
+  <section id="skills">
+    <div class="container">
+      <h2>Skills</h2>
+
+      <div class="skills-grid">
+        <div class="skill">HTML5</div>
+        <div class="skill">CSS3</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Responsive Design</div>
+        <div class="skill">CSS Grid</div>
+        <div class="skill">Flexbox</div>
+        <div class="skill">Git & GitHub</div>
+        <div class="skill">UI/UX Design</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       PROJECTS
+  ========================== -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800" alt="">
+          <div class="project-content">
+            <h3>Sales Dashboard</h3>
+            <p>
+              Interactive business dashboard built using Power BI.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800" alt="">
+          <div class="project-content">
+            <h3>Portfolio Website</h3>
+            <p>
+              Fully responsive portfolio with dark/light mode.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800" alt="">
+          <div class="project-content">
+            <h3>Analytics Project</h3>
+            <p>
+              Data visualization and trend analysis project.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       CONTACT
+  ========================== -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+
+      <div class="contact-box">
+        <p>Email: yourmail@gmail.com</p>
+        <p>GitHub: github.com/yourprofile</p>
+        <p>LinkedIn: linkedin.com/in/yourprofile</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer>
+    <p>© 2026 Syed Gouse | All Rights Reserved</p>
+  </footer>
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+    const toggleBtn = document.querySelector(".theme-toggle");
+
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-theme");
+
+      if(document.body.classList.contains("dark-theme")) {
+        toggleBtn.textContent = "Light Mode";
+      } else {
+        toggleBtn.textContent = "Dark Mode";
+      }
+    });
+  </script>
+
+</body>
+</html>
